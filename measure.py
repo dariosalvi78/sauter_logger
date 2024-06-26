@@ -37,7 +37,7 @@ channels = 1 # 1 channel is probably enough
 fs = 44100  # Record at 44100 samples per second
 chunk = 1024  # Record in chunks of 1024 samples
 audioDuration = 3 # for how long before and after the peak we want to record, in s
-
+AUDIO_HW_ID = -1 # if 0 or bigger indicates the audio interface to be used
 
 
 ##########################################
@@ -236,14 +236,19 @@ def audioFileSaveThread():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Sauter SU logger')
     parser.add_argument('-d', '--device', required=False, default=PORT, help='serial device (default: '+PORT+')')
-    parser.add_argument('-s', '--saveaudio', required=False, default=SAVE_AUDIO, help='save audio when above threshold (default: true)')
     parser.add_argument('-f', '--datafolder', required=False, default=FILE_SAVE_DIRECTORY, help='folder where data is saved (default: ' +FILE_SAVE_DIRECTORY+ ')')
+    parser.add_argument('-s', '--saveaudio', required=False, default=SAVE_AUDIO, help='save audio when above threshold (default: true)')
     parser.add_argument('-l', '--levelthreshold', required=False, default=LEVEL_THRESHOLD, help='save audio when above threshold (default: 80db)')
+    parser.add_argument('-i', '--audiohwid', required=False, default=AUDIO_HW_ID, help='ID of the audio interface')
+
 
     args=parser.parse_args()
 
     if SAVE_AUDIO:
         portAudio = pyaudio.PyAudio()  # Create an interface to PortAudio
+
+        if AUDIO_HW_ID >-1:
+            portAudio.set_default_input_device(AUDIO_HW_ID)
 
         stream = portAudio.open(format=sample_format,
                         channels=channels,

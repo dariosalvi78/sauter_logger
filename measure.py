@@ -247,14 +247,20 @@ if __name__ == "__main__":
     if SAVE_AUDIO:
         portAudio = pyaudio.PyAudio()  # Create an interface to PortAudio
 
-        if AUDIO_HW_ID >-1:
-            portAudio.set_default_input_device(AUDIO_HW_ID)
-
-        stream = portAudio.open(format=sample_format,
+        if AUDIO_HW_ID == -1:
+            stream = portAudio.open(format=sample_format,
                         channels=channels,
                         rate=fs,
                         frames_per_buffer=chunk,
                         input=True)
+        else:
+            stream = portAudio.open(format=sample_format,
+                        channels=channels,
+                        rate=fs,
+                        frames_per_buffer=chunk,
+                        input=True,
+                        input_device_index=AUDIO_HW_ID)
+        
 
     run = True
     if SAVE_AUDIO:

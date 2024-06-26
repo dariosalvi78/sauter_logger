@@ -2,10 +2,37 @@
 
 A simple data logger example program
 for [Sauter SU 130](https://www.sauter.eu/shop/en/measuring-instruments/occupational-safety-environment/SU/) (and maybe others).
-The 2.5mm jack is RS232 (I measured around 3.7V from the device) and the [cable](https://www.sauter.eu/shop/de/zubehoer/software/ATC-01/) I got already contains a PL2303. The software which comes with the cable works but only runs in Windows. I wasn't able to run it in wine.
+The 2.5mm jack exposes a RS232 which can be connected to any USB to UART adapter (for example those based on the PL2303 chip).
 
-The software and cable are the same for Sauter TC, TE, TF, TG, SU, HD, TD.
 
+## To start it
+
+Clone the repo locally. Then create a virtual environment
+
+```
+python3 -m venv .venv
+```
+
+Activate the virtual environment:
+```
+source .venv/bin/activate
+```
+
+Install dependencies:
+```
+python3 -m pip install -r requirements.txt
+```
+
+Run the script:
+```
+python3 measure.py --device /dev/ttyUSB0
+```
+Change the parameters as you see fit.
+
+When done, deactivate the virtual environment:
+```
+deactivate
+```
 
 ## Protocol
 The device runs at 2400baud and sends 0x10 around twice a second (which indicates that a new measurement is available). Each time you answer with 0x20, the device responds with a message containing the mode (Lp, Lq,.. fast/slow,..) and the value.

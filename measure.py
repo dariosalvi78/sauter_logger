@@ -265,7 +265,7 @@ if __name__ == "__main__":
                         frames_per_buffer=chunk,
                         input=True)
         else:
-            print('Opening audio interface with id ' + AUDIO_HW_ID)
+            print('Opening audio interface with id ' + str(AUDIO_HW_ID))
             portAudio.get_device_info_by_index(AUDIO_HW_ID)
             stream = portAudio.open(format=sample_format,
                         channels=channels,

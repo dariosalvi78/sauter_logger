@@ -244,19 +244,20 @@ if __name__ == "__main__":
 
     args=parser.parse_args()
 
-    print('Starting audio recorder, serial port: ' + PORT + ', folder: ' + FILE_SAVE_DIRECTORY + ', threshold: ' + str(LEVEL_THRESHOLD) + ', audio HW id: ' + AUDIO_HW_ID)
+    print('Starting audio recorder, serial port: ' + PORT + ', folder: ' + FILE_SAVE_DIRECTORY + ', threshold: ' + str(LEVEL_THRESHOLD) + ', audio HW id: ' + str(AUDIO_HW_ID))
 
     if SAVE_AUDIO:
         portAudio = pyaudio.PyAudio()  # Create an interface to PortAudio
 
         if AUDIO_HW_ID == -1:
+            print('Opening default audio interface')
             stream = portAudio.open(format=sample_format,
                         channels=channels,
                         rate=fs,
                         frames_per_buffer=chunk,
                         input=True)
         else:
-            print('Opening audio interface ' + AUDIO_HW_ID)
+            print('Opening audio interface with id ' + AUDIO_HW_ID)
             portAudio.get_device_info_by_index(AUDIO_HW_ID)
             stream = portAudio.open(format=sample_format,
                         channels=channels,

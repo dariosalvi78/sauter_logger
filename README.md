@@ -7,7 +7,7 @@ The 2.5mm jack exposes a RS232 which can be connected to any USB to UART adapter
 
 ## To start it
 
-Clone the repo locally. Then create a virtual environment
+Clone the repo locally. Then create [a virtual environment](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#using-a-requirements-file)
 
 ```
 python3 -m venv .venv
@@ -25,7 +25,7 @@ python3 -m pip install -r requirements.txt
 
 Run the script:
 ```
-python3 measure.py --device /dev/ttyUSB0 --datafolder /data --levelthreshold 85
+python3 measure.py --device /dev/ttyUSB0 --datafolder /mnt/usb1 --levelthreshold 85
 ```
 Change the parameters as you see fit.
 

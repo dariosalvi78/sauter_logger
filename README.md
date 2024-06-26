@@ -25,7 +25,7 @@ python3 -m pip install -r requirements.txt
 
 Run the script:
 ```
-python3 measure.py --device /dev/ttyUSB0 --datafolder /mnt/usb1 --levelthreshold 85
+python3 measure.py --serialport /dev/ttyUSB0 --datafolder /mnt/usb1 --levelthreshold 85
 ```
 Change the parameters as you see fit.
 

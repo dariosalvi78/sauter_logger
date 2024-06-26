@@ -237,12 +237,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Sauter SU logger')
     parser.add_argument('-p', '--serialport', required=False, default=PORT, help='serial device (default: '+PORT+')')
     parser.add_argument('-f', '--datafolder', required=False, default=FILE_SAVE_DIRECTORY, help='folder where data is saved (default: ' +FILE_SAVE_DIRECTORY+ ')')
-    parser.add_argument('-s', '--saveaudio', required=False, default=SAVE_AUDIO, help='save audio when above threshold (default: true)')
+    parser.add_argument('-s', '--saveaudio', required=False, action="store_true", default=SAVE_AUDIO, help='save audio when above threshold (default: true)')
     parser.add_argument('-l', '--levelthreshold', type=int, required=False, default=LEVEL_THRESHOLD, help='save audio when above threshold (default: 80db)')
     parser.add_argument('-i', '--audiohwid', type=int, required=False, default=AUDIO_HW_ID, help='ID of the audio interface')
 
 
     args=parser.parse_args()
+
+    PORT = args.serialport
+    FILE_SAVE_DIRECTORY = args.datafolder
+    SAVE_AUDIO = args.saveaudio
+    LEVEL_THRESHOLD = args.levelthreshold
+    AUDIO_HW_ID = args.audiohwid
+
+    
 
     print('Starting audio recorder, serial port: ' + PORT + ', folder: ' + FILE_SAVE_DIRECTORY + ', threshold: ' + str(LEVEL_THRESHOLD) + ', audio HW id: ' + str(AUDIO_HW_ID))
 

@@ -149,10 +149,10 @@ def sensorThread():
         msg=bytes()
         while True:
             char = ser.read()
-            if char==b'':
+            if char == b'':
                 #print("timeout")
                 break
-            msg+=char
+            msg += char
 
         ### check chksum
         if len(msg)<1:
@@ -166,12 +166,15 @@ def sensorThread():
 
         ### decode
         dt=datetime.now().strftime(STRFTIME)
-
-        val,msg = decode_msg(msg)        
-        csvLine = dt + ',' + val + ',' + msg
-        print (csvLine)
-        csvFile.write(csvLine + '\n')
-        csvFile.flush()
+        try:
+            val,msg = decode_msg(msg)        
+            csvLine = dt + ',' + val + ',' + msg
+            print (csvLine)
+            csvFile.write(csvLine + '\n')
+            csvFile.flush()
+        except:
+            print("An exception occurred while decoding message")
+        
 
         if SAVE_AUDIO and val and float(val) > LEVEL_THRESHOLD:
                 print("LOUD SOUND!")

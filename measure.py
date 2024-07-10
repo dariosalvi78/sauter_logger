@@ -200,7 +200,7 @@ def audioRecordThread():
     global audioDuration
     while run:
         # read the audio data and place it in a buffer
-        audiodata = stream.read(chunk)
+        audiodata = stream.read(chunk, exception_on_overflow = False)
         buffer.append(audiodata)
         
         # discard data older than a few secs
